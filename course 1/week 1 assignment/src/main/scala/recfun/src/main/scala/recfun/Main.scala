@@ -1,5 +1,5 @@
 package recfun
-
+import scala.collection.mutable.Stack
 object Main {
   def main(args: Array[String]) {
     println("Pascal's Triangle")
@@ -25,10 +25,28 @@ object Main {
   /**
    * Exercise 2
    */
-    def balance(chars: List[Char]): Boolean = ???
+    def balance(chars: List[Char]): Boolean = {
+      def inner(chars: List[Char], open: Int): Boolean ={
+       if(chars.isEmpty)
+         open == 0
+       else if(chars.head=='(')
+         inner(chars.tail, open+1)
+       else if(chars.head==')')
+         open>0&&inner(chars.tail, open-1)
+       else
+         inner(chars.tail, open)
+      }
+      inner(chars, 0)
+    }
   
   /**
    * Exercise 3
    */
-    def countChange(money: Int, coins: List[Int]): Int = ???
+    def countChange(money: Int, coins: List[Int]): Int = {
+      if (coins.isEmpty) {
+        0
+      } else {
+        countChange(money - coins.head, coins.tail)
+      }
+    }
   }
